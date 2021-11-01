@@ -9,7 +9,7 @@ const port = process.env.port||3001
 
 
 //API security
-app.use(helmet());
+//app.use(helmet());
 
 //Handle CORS error
 app.use(cors());

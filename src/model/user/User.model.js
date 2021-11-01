@@ -10,6 +10,25 @@ const insertUser = userObj =>{
  
 }
 
+const findUserByEmail = email =>{
+    
+    
+   return new Promise((resolve,reject)=>{
+    if(!email) return false
+        
+
+        UserSchema
+        .findOne({email},(error,data)=>{
+            if(error){
+                reject(error)
+            }
+            resolve(data)
+        })
+        
+    })
+ 
+}
 module.exports ={
-    insertUser
+    insertUser,
+    findUserByEmail
 }
