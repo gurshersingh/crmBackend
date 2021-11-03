@@ -11,35 +11,42 @@ const insertUser = userObj =>{
 }
 
 const findUserByEmail = email =>{
-    
-    
    return new Promise((resolve,reject)=>{
     if(!email) return false
-        
-
         UserSchema
         .findOne({email},(error,data)=>{
             if(error){
                 reject(error)
             }
             resolve(data)
-        })
-        
+        })  
     })
  
 }
-
+const findUserById= id =>{
+    return new Promise((resolve,reject)=>{
+     if(!id) return false
+         UserSchema
+         .findOne({id},(error,data)=>{
+             if(error){
+                 reject(error)
+             }
+             resolve(data)
+         })  
+     })
+  
+ }
 const storeUserRefreshJWT =(token,_id)=>{
     try {
         console.log("token", token," ID ",_id)
         return new Promise((resolve,reject)=>{
-            (UserSchema.findByIdAndUpdate({_id},{$set:{"refreshJWT.token":token,
+            UserSchema.findByIdAndUpdate({_id},{$set:{"refreshJWT.token":token,
             "refreshJWT.addedAt":Date.now()}},
-           { new:true}))
-        .then((data=>{
+           { new:true})
+        .then((data)=>{
             console.log(data)
             resolve(data)
-        })).catch((error)=>{
+        }).catch((error)=>{
             console.log(error)
             reject(error)
         })
@@ -53,5 +60,6 @@ const storeUserRefreshJWT =(token,_id)=>{
 module.exports ={
     insertUser,
     findUserByEmail,
-    storeUserRefreshJWT
+    storeUserRefreshJWT,
+    findUserById
 }
