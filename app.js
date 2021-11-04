@@ -32,10 +32,12 @@ app.use(bodyParser.json());
 //Load Router
 const userRouter = require('./src/router/user.router')
 const ticketRouter = require('./src/router/ticket.router')
+const tokenRouter = require('./src/router/token.router')
 
 //Use Router
 app.use('/v1/user',userRouter)
 app.use('/v1/ticket',ticketRouter)
+app.use('/v1/tokens',tokenRouter)
 
 const errorHandler = require('./src/utils/errorHandler')
 app.use((req,res,next)=>{

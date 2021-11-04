@@ -21,9 +21,14 @@ router.post("/", async (req,res)=>{
 })
 
 router.get("/login", userAuthorization,async(req,res) =>{
-    const userProfile = await findUserById(req.id)
+    try {
+        const userProfile = await findUserById(req.id)
    
         res.json({user:userProfile})
+    } catch (error) {
+        res.status(404).json({message:"forbidden"})
+    }
+    
         
     
 })

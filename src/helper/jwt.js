@@ -1,6 +1,6 @@
 
 const jwt = require("jsonwebtoken")
-const{setJWT,getJWT} =require("./redis")
+const{setJWT,getJWT,deleteJWT} =require("./redis")
 const {storeUserRefreshJWT} = require("../model/user/User.model")
 
 const createAccessJWT = async (email,_id) =>{
@@ -31,6 +31,22 @@ const verifyAccessJWT = async (key) =>{
     try {
         //console.log("Key= ",key)
         const decodedJWT = jwt.verify(key,process.env.JWT_ACCESS_SECRET)
+        console.log(decodedJWT)
+        if(!decodedJWT){
+            await deleteJWT(key)
+            console.log("deleted")
+        }
+        return Promise.resolve(decodedJWT)
+    } catch (error) {
+        //replace error with decodedJWT if needed
+        return Promise.reject(error)
+    }
+    
+}
+const verifyRefreshJWT = async (key) =>{
+    try {
+        //console.log("Key= ",key)
+        const decodedJWT = jwt.verify(key,process.env.JWT_REFRESH_SECRET)
         //console.log(decodedJWT)
         
        
@@ -45,5 +61,6 @@ const verifyAccessJWT = async (key) =>{
 module.exports={
     createAccessJWT,
     createRefreshJWT,
-    verifyAccessJWT
+    verifyAccessJWT,
+    verifyRefreshJWT
 }
