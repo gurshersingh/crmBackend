@@ -31,3 +31,22 @@ Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0Z
 GET http://localhost:3001/v1/tokens
 Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM1OTExNzAxLCJleHAiOjE2Mzg1MDM3MDF9.PDv3GE9XyAFRQtqZIsD_cN9JLKplOZQP-q_8IOnsTR0
 
+
+###request pin
+POST http://localhost:3001/v1/user/reset
+Content-Type: application/json
+
+{
+    "email":"a4@a.com"
+}
+
+
+###reset password
+PATCH  http://localhost:3001/v1/user/reset
+Content-Type: application/json
+
+{
+    "email":"a4@a.com",
+    "pin":"422286",
+    "password":"password1"
+}
