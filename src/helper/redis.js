@@ -24,9 +24,9 @@ const getJWT = (key)=>{
     try {
         return new Promise((res,rej)=>{
             client.get(key,  (error,response)=>{
-                if(error) rej(error)
+                if(error|| null) rej(error)
                 res(response)
-                console.log("chalpea..",response)
+                //console.log("chalpea..",response)
         })
     
         })
@@ -37,7 +37,7 @@ const getJWT = (key)=>{
 }
 const deleteJWT = key =>{
     try {
-        client.del(key)
+        return Promise.resolve( client.del(key))
     } catch (error) {
         console.log(error)
     }

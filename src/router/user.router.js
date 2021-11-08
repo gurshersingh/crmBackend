@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {insertUser,findUserByEmail,findUserById,findEmailPassword } = require("../model/user/User.model")
+const {insertUser,findUserByEmail,findUserById,findEmailPassword,storeUserRefreshJWT } = require("../model/user/User.model")
 const { hashPassword, coparePassword} = require("../helper/bcrypt")
 const {createAccessJWT,createRefreshJWT,verifyAccessJWT} =require("../helper/jwt")
 const {userAuthorization}=require("../middleware/authorization.middle")
@@ -8,6 +8,7 @@ const {getPin}= require("../helper/pinGenerator")
 const {insertEmailPin,deleteUserByEmail,findByEmailPin} = require("../model/emailPin/EmailPin.model")
 const {sendResetPin} = require("../utils/resetEmail")
 const {resetPasswordValidation,resetNewPasswordValidation}=require("../middleware/validation")
+const {deleteJWT, getJWT}= require("../helper/redis")
 
 router.post("/", async (req,res)=>{
     try {
@@ -130,5 +131,24 @@ router.patch("/reset", resetNewPasswordValidation,async (req,res)=>{
     }
     
    
+})
+
+router.delete("/logout", userAuthorization, async(req,res) =>{
+    try {
+        const {authorization} = req.headers
+        const user = await getJWT(authorization)
+        //console.log(user)
+        const redisData = await deleteJWT(authorization)
+        //console.log(redisData)
+        const deleteRefreshJWT =  await storeUserRefreshJWT("",user)
+        console.log(deleteRefreshJWT)
+        if(redisData && deleteRefreshJWT) { console.log("logout successfully")}
+        res.json({message:"logout successfully"})
+    } catch (error) {
+        res.status(404).json({message:"forbidden"})
+    }
+    
+        
+    
 })
 module.exports = router

@@ -31,7 +31,7 @@ const verifyAccessJWT = async (key) =>{
     try {
         //console.log("Key= ",key)
         const decodedJWT = jwt.verify(key,process.env.JWT_ACCESS_SECRET)
-        console.log(decodedJWT)
+        //console.log(decodedJWT)
         if(!decodedJWT){
             await deleteJWT(key)
             console.log("deleted")
