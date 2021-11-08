@@ -19,7 +19,7 @@ Content-Type: application/json
 
 {
     "email":"a4@a.com",
-    "password":"password"
+    "password":"password3"
 }
 
 ###verify token
@@ -37,7 +37,7 @@ POST http://localhost:3001/v1/user/reset
 Content-Type: application/json
 
 {
-    "email":"a4@a.com"
+    "email":"a4@a"
 }
 
 
@@ -47,6 +47,6 @@ Content-Type: application/json
 
 {
     "email":"a4@a.com",
-    "pin":"422286",
-    "password":"password1"
+    "pin":"624240",
+    "password":"password3"
 }

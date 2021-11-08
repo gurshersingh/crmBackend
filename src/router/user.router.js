@@ -7,6 +7,7 @@ const {userAuthorization}=require("../middleware/authorization.middle")
 const {getPin}= require("../helper/pinGenerator")
 const {insertEmailPin,deleteUserByEmail,findByEmailPin} = require("../model/emailPin/EmailPin.model")
 const {sendResetPin} = require("../utils/resetEmail")
+const {resetPasswordValidation,resetNewPasswordValidation}=require("../middleware/validation")
 
 router.post("/", async (req,res)=>{
     try {
@@ -72,7 +73,7 @@ router.post("/login", async (req,res)=>{
     }
 })
 
-router.post("/reset", async (req,res)=>{
+router.post("/reset",resetPasswordValidation, async (req,res)=>{
     const user = await findUserByEmail(req.body.email)
     if(!user) return res.send({message:"You will receive email if you have account"})
     const resetPin= await getPin()
@@ -93,7 +94,7 @@ router.post("/reset", async (req,res)=>{
     
 })
 
-router.patch("/reset", async (req,res)=>{
+router.patch("/reset", resetNewPasswordValidation,async (req,res)=>{
     try {
         const {email,pin,password}=req.body
     const emailDB = await findByEmailPin(email,pin)
@@ -104,7 +105,8 @@ router.patch("/reset", async (req,res)=>{
     pinValidity=  pinValidity.setDate(pinValidity.getDate()+1)
     //console.log((pinValidity.toDate))
     const nowTime =  new Date()
-    if(nowTime>pinValidity) return res.send({message:"pin expired "})
+    if(nowTime>pinValidity) //console.log("pin expired")
+    return res.send({message:"pin expired "})
 
     const hashedPassword = await (hashPassword(password))
     console.log(hashedPassword)
