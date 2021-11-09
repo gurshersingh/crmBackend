@@ -141,7 +141,7 @@ router.delete("/logout", userAuthorization, async(req,res) =>{
         const redisData = await deleteJWT(authorization)
         //console.log(redisData)
         const deleteRefreshJWT =  await storeUserRefreshJWT("",user)
-        console.log(deleteRefreshJWT)
+        //console.log(deleteRefreshJWT)
         if(redisData && deleteRefreshJWT) { console.log("logout successfully")}
         res.json({message:"logout successfully"})
     } catch (error) {

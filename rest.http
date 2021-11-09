@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ###verify token
 GET http://localhost:3001/v1/user/login
-Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM1OTAzODcwLCJleHAiOjE2MzU5MDQ3NzB9.8y0tQWI_eF1C-qnG5xmQ66NstRl4X0hwPDltpg7s8BY
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzU0NzQyLCJleHAiOjE2MzYzNTU2NDJ9.59GvGdLbeZ0sCBcmghjY501MabHxSk0dJTRLdINP1Ns
 
 
 ###verify refresh token
@@ -37,7 +37,7 @@ POST http://localhost:3001/v1/user/reset
 Content-Type: application/json
 
 {
-    "email":"a4@a"
+    "email":"a4@a.com"
 }
 
 
@@ -47,6 +47,44 @@ Content-Type: application/json
 
 {
     "email":"a4@a.com",
-    "pin":"624240",
+    "pin":"62424",
     "password":"password3"
 }
+
+###verify refresh token
+DELETE  http://localhost:3001/v1/user/logout
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYyMDQ0LCJleHAiOjE2MzYzNjI5NDR9.ebOtd3Kbmp_rN2evKG3uLbBtF2qT2bG_IxNDk0QiBjE
+
+### Post ticket
+POST http://localhost:3001/v1/ticket/
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYyMDQ0LCJleHAiOjE2MzYzNjI5NDR9.ebOtd3Kbmp_rN2evKG3uLbBtF2qT2bG_IxNDk0QiBjE
+
+{
+    "subject":"login issue",
+    "sender":"singh",
+    "message":"I am fine"
+}
+
+### Get all ticket
+GET  http://localhost:3001/v1/ticket/
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYzMTM5LCJleHAiOjE2MzY0NDk1Mzl9.QcHcSy1xpLVGQB2fLocwrG1snIu41CFAQq-MNoj-la8
+
+### Get one ticket
+GET  http://localhost:3001/v1/ticket/6188e869e5fa9caf402f702e
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYzMTM5LCJleHAiOjE2MzY0NDk1Mzl9.QcHcSy1xpLVGQB2fLocwrG1snIu41CFAQq-MNoj-la8
+
+### Reply message
+PUT http://localhost:3001/v1/ticket/6188e869e5fa9caf402f702e
+Content-Type: application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYzMTM5LCJleHAiOjE2MzY0NDk1Mzl9.QcHcSy1xpLVGQB2fLocwrG1snIu41CFAQq-MNoj-la8
+
+{
+    "message":"wednesday?",
+    "sender":"singh"
+}
+
+### Close ticket
+PATCH  http://localhost:3001/v1/ticket/6188e869e5fa9caf402f702e
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTgxZDVkMjk4MDk0ZWU5MWMzMDZhMDAiLCJlbWFpbCI6ImE0QGEuY29tIiwiaWF0IjoxNjM2MzYzMTM5LCJleHAiOjE2MzY0NDk1Mzl9.QcHcSy1xpLVGQB2fLocwrG1snIu41CFAQq-MNoj-la8
+

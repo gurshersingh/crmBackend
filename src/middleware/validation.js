@@ -11,6 +11,8 @@ const password =  Joi.string()
 .max(30)
 .required()
 
+const shrtStrng = Joi.string().min(2).max(50)
+const longStrng = Joi.string().min(2).max(500)
 
 
 const resetPasswordValidation = (req,res,next)=>{
@@ -29,8 +31,17 @@ const resetNewPasswordValidation = (req,res,next)=>{
     }
     next()
 }
+const ticketReplyMsgValidation = (req,res,next)=>{
+    const schema = Joi.object({message:longStrng,sender:shrtStrng.required()})
+    const value = schema.validate(req.body);
+    if(value.error){
+        return res.json({status:"eror",message:value.error.message})
+    }
+    next()
+}
 
 module.exports={
     resetPasswordValidation,
-    resetNewPasswordValidation
+    resetNewPasswordValidation,
+    ticketReplyMsgValidation
 }

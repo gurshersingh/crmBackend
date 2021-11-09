@@ -3,10 +3,10 @@ const {getJWT,deleteJWT} =require("../helper/redis")
 const userAuthorization = async (req,res,next) =>{
     const {authorization} = req.headers
     try {
-    //console.log(authorization)
+   //console.log(authorization)
     const decoded = await verifyAccessJWT(authorization).then((data)=>data)
     .catch(async(err)=>{
-        await deleteJWT(authorization)
+        //await deleteJWT(authorization)
         console.log("deleted")
         return err
     })
